@@ -1,46 +1,24 @@
-
 # 🚀 Azure End-to-End Data Engineering Project
 
-> **End-to-End Azure Data Engineering Pipeline using Azure Data Factory, Azure Data Lake Storage Gen2, Azure Databricks, Azure Synapse Analytics and Power BI**
+> **An end-to-end Azure Data Engineering pipeline built using Azure Data Factory, Azure Data Lake Storage Gen2, Azure Databricks (PySpark), Azure Synapse Analytics, and Power BI following the Medallion Architecture.**
 
-![Architecture](architecture/architecture.png)
-
----
-
-## 📌 Project Overview
-
-This project demonstrates a complete Azure Data Engineering solution built using the **Medallion Architecture (Bronze → Silver → Gold)**.
-
-The pipeline ingests AdventureWorks CSV datasets from GitHub using Azure Data Factory, stores raw data in Azure Data Lake Storage Gen2, performs data cleansing and transformation with Azure Databricks (PySpark), creates analytical views in Azure Synapse Analytics, and visualizes business insights using Power BI.
+<p align="center">
+<img src="architecture/architecture.png" width="100%">
+</p>
 
 ---
 
-# 🏗️ Architecture
+# 📌 Business Problem
 
-```text
-GitHub CSV
-      │
-      ▼
-Azure Data Factory
-      │
-      ▼
-Bronze (ADLS Gen2)
-      │
-      ▼
-Azure Databricks (PySpark)
-      │
-      ▼
-Silver (ADLS Gen2)
-      │
-      ▼
-Azure Synapse Analytics
-      │
-      ▼
-Gold Layer
-      │
-      ▼
-Power BI Dashboard
-```
+Organizations receive raw transactional data from multiple operational systems. Raw data is often inconsistent, duplicated, and not optimized for analytics.
+
+This project demonstrates how to build a modern Azure Data Engineering pipeline that ingests raw CSV files, transforms them into trusted datasets, creates an analytical Gold layer, and visualizes insights through Power BI.
+
+---
+
+# 🏗️ Solution Architecture
+
+GitHub CSV → Azure Data Factory → ADLS Gen2 (Bronze) → Azure Databricks (Silver) → Azure Synapse (Gold) → Power BI
 
 ---
 
@@ -49,131 +27,199 @@ Power BI Dashboard
 | Service | Purpose |
 |---------|---------|
 | Azure Data Factory | Data Ingestion |
-| ADLS Gen2 | Data Lake Storage |
-| Azure Databricks | Data Transformation |
-| PySpark | ETL Logic |
-| Azure Synapse Analytics | SQL & Analytics |
-| Power BI | Dashboard & Reporting |
-| GitHub | Dataset Source |
+| Azure Data Lake Storage Gen2 | Data Lake |
+| Azure Databricks | PySpark Transformations |
+| Azure Synapse Analytics | SQL Analytics |
+| Power BI | Visualization |
+| GitHub | Source Data |
 
 ---
 
 # 📂 Repository Structure
 
 ```text
-Azure-End-to-End-Data-Engineering-Project
-│
-├── datasets
-├── notebooks
-├── sql
-├── screenshots
-├── architecture
-├── README.md
-├── LICENSE
-├── .gitignore
-└── requirements.txt
+datasets/
+notebooks/
+sql/
+screenshots/
+architecture/
+README.md
+LICENSE
+.gitignore
+requirements.txt
 ```
+
+---
+
+# ⭐ Key Features
+
+- End-to-End Azure Data Pipeline
+- Medallion Architecture (Bronze → Silver → Gold)
+- PySpark Data Transformation
+- Synapse SQL Gold Layer
+- Interactive Power BI Dashboard
+- Modular Repository Structure
 
 ---
 
 # 🔄 Pipeline Flow
 
-1. GitHub hosts AdventureWorks CSV datasets.
-2. Azure Data Factory copies files into the Bronze container.
-3. Azure Databricks notebook performs PySpark transformations.
-4. Cleaned data is stored in the Silver container.
-5. Azure Synapse SQL creates external tables and Gold views.
-6. Curated Gold data is consumed by Power BI dashboards.
+1. GitHub stores AdventureWorks datasets.
+2. Azure Data Factory ingests data.
+3. Files land in the Bronze layer.
+4. Databricks cleans and transforms data into Silver.
+5. Synapse creates analytical Gold views.
+6. Power BI consumes Gold datasets.
 
 ---
 
 # 📸 Project Walkthrough
 
-## Resource Setup
-![Resource Group](screenshots/01-resource-group.png)
+<details>
+<summary><b>1. Azure Resource Setup</b></summary>
 
-![Storage Account](screenshots/02-storage-account.png)
+Resource Group used to organize all Azure resources.
 
-![Containers](screenshots/03-storage-containers.png)
+![](screenshots/01-resource-group.png)
 
-## Azure Data Factory
-![ADF Home](screenshots/04-adf-home.png)
+Azure Storage Account hosting the data lake.
 
-![ADF Pipeline](screenshots/05-adf-pipeline.png)
+![](screenshots/02-storage-account.png)
 
-![Linked Services](screenshots/06-adf-linked-service.png)
+Bronze, Silver and Gold containers.
 
-## Azure Databricks
-![Workspace](screenshots/07-databricks-workspace.png)
+![](screenshots/03-storage-containers.png)
 
-![Notebook](screenshots/08-databricks-notebook.png)
+</details>
 
-![Compute](screenshots/09-databricks-compute.png)
+<details>
+<summary><b>2. Azure Data Factory</b></summary>
 
-## Azure Synapse
-![Synapse Home](screenshots/10-Synapse-home.png)
+ADF workspace overview.
 
-![Develop](screenshots/11-Synapse-develop.png)
+![](screenshots/04-adf-home.png)
 
-![SQL Objects](screenshots/12-Synapse-datatab.png)
+Pipeline that copies GitHub CSV files into ADLS Bronze.
 
-## Data Lake Layers
-![Bronze](screenshots/13-Bronze-container.png)
+![](screenshots/05-adf-pipeline.png)
 
-![Silver](screenshots/14-Silver-container.png)
+Linked services connecting Azure resources.
 
-![Gold](screenshots/15-Gold-container.png)
+![](screenshots/06-adf-linked-service.png)
 
-## Dashboard
-![Power BI](screenshots/16-Powerbi-dashboard.png)
+</details>
+
+<details>
+<summary><b>3. Azure Databricks</b></summary>
+
+Workspace configuration.
+
+![](screenshots/07-databricks-workspace.png)
+
+PySpark notebook implementing Bronze → Silver transformations.
+
+![](screenshots/08-databricks-notebook.png)
+
+Compute cluster used to execute transformations.
+
+![](screenshots/09-databricks-compute.png)
+
+</details>
+
+<details>
+<summary><b>4. Azure Synapse Analytics</b></summary>
+
+Synapse workspace.
+
+![](screenshots/10-Synapse-home.png)
+
+SQL development environment.
+
+![](screenshots/11-Synapse-develop.png)
+
+SQL objects used to expose Gold views.
+
+![](screenshots/12-Synapse-datatab.png)
+
+</details>
+
+<details>
+<summary><b>5. Data Lake Layers</b></summary>
+
+Bronze Layer (Raw)
+
+![](screenshots/13-Bronze-container.png)
+
+Silver Layer (Cleaned)
+
+![](screenshots/14-Silver-container.png)
+
+Gold Layer (Analytics Ready)
+
+![](screenshots/15-Gold-container.png)
+
+</details>
+
+<details>
+<summary><b>6. Power BI Dashboard</b></summary>
+
+Interactive dashboard built on the Gold layer.
+
+![](screenshots/16-Powerbi-dashboard.png)
+
+</details>
 
 ---
 
-# ⭐ Features
+# 🚧 Challenges & Solutions
 
-- End-to-End Azure Data Pipeline
+| Challenge | Solution |
+|-----------|----------|
+| ADLS authentication | Configured Service Principal & RBAC |
+| Databricks storage access | OAuth configuration |
+| Bronze → Silver transformation | Implemented using PySpark |
+| Gold layer | Created Synapse SQL views |
+| Secret scanning during Git push | Removed client secret before publishing |
+
+---
+
+# 📊 Project Summary
+
+- Azure Services Used: **6**
+- Data Layers: **3**
+- Databricks Notebook: **1**
+- Synapse SQL Scripts: **Included**
+- Power BI Dashboard: **1**
+- Architecture: **Medallion**
+
+---
+
+# 📚 Key Learnings
+
+- Azure Data Factory Pipelines
+- Azure Data Lake Storage Gen2
+- Azure Databricks with PySpark
 - Medallion Architecture
-- Automated Data Ingestion
-- PySpark Transformations
-- Synapse SQL Analytics
-- Interactive Power BI Dashboard
-
----
-
-# 🧩 Challenges Solved
-
-- Azure Databricks workspace provisioning
-- Service Principal authentication
-- RBAC permissions for ADLS Gen2
-- AuthorizationPermissionMismatch resolution
-- Azure Synapse integration
-- Bronze → Silver → Gold implementation
-
----
-
-# 📈 Results
-
-- ✅ Automated pipeline
-- ✅ Bronze, Silver & Gold layers created
-- ✅ Synapse analytical layer
-- ✅ Power BI dashboard
-- ✅ Enterprise-style Azure architecture
+- Azure Synapse Analytics
+- Power BI Reporting
+- Git & GitHub Portfolio Management
 
 ---
 
 # 🚀 Future Enhancements
 
-- CI/CD using GitHub Actions
-- Terraform deployment
-- Data Quality checks
-- Azure Monitor integration
+- CI/CD with GitHub Actions
+- Terraform Infrastructure as Code
+- Incremental Data Loads
+- Data Quality Validation
+- Monitoring & Alerting
 
 ---
 
 # 👨‍💻 Author
 
 **Karthik**  
-Data Engineer  
+**Data Engineer**  
 Bangalore, India
 
 GitHub: https://github.com/DigitalKarthikAI
